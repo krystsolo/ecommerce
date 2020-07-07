@@ -22,5 +22,13 @@ public class Inventory {
         }
 
         item.increaseStockBy(amount);
+        repository.save(item);
+    }
+
+    public void updateStockFor(Order order) {
+        order.getOrderItems().forEach(orderItem -> {
+            Item item = repository.findByProductId(orderItem.getProductId());
+            item.reduceStockBy(orderItem.getAmount());
+        });
     }
 }

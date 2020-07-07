@@ -29,6 +29,21 @@ class InventoryTest extends Specification {
             itemRepository.findByProductId(PRODUCT_ID).amount == AMOUNT
     }
 
+    def "should reduce stock of items from order"() {
+        given:
+            UUID PRODUCT_ID = UUID.randomUUID()
+            long AMOUNT = 5
+            inventory.addToStock(PRODUCT_ID, AMOUNT)
+            Order order = new Order()
+            order.addToOrder(PRODUCT_ID, AMOUNT)
+
+        when:
+            inventory.updateStockFor(order)
+
+        then:
+            itemRepository.findByProductId(PRODUCT_ID).amount == 0
+    }
+
     def thereIsItemWith(UUID productId) {
         itemRepository.save(new Item(productId))
     }

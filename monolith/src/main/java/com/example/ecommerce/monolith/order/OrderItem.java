@@ -1,4 +1,4 @@
-package com.example.ecommerce.monolith.inventory;
+package com.example.ecommerce.monolith.order;
 
 import lombok.*;
 
@@ -11,27 +11,27 @@ import java.util.UUID;
 @EqualsAndHashCode(of = "id")
 @NoArgsConstructor(access = AccessLevel.PRIVATE, force = true)
 @Entity
-public class Item {
+public class OrderItem {
 
     private @Id UUID id;
     private UUID productId;
     private long amount;
 
-    public Item(UUID productId) {
+    OrderItem(UUID productId, long amount) {
         this.id = UUID.randomUUID();
         this.productId = productId;
-        this.amount = 0;
+        this.amount = amount;
     }
 
-    void reduceStockBy(long amount) {
-        if (this.amount < amount) {
-            throw new IllegalArgumentException("Stock insufficient");
-        }
-
-        this.amount = this.amount - amount;
-    }
-
-    void increaseStockBy(long amount) {
+    void increaseQuantityBy(long amount) {
         this.amount =+ amount;
+    }
+
+    void decreaseQuantityBy(long amount) {
+        if (this.amount > amount) {
+            this.amount =- amount;
+        } else {
+            this.amount = 0;
+        }
     }
 }
