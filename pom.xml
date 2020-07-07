@@ -12,7 +12,6 @@
     <artifactId>ecommerce</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>ecommerce</name>
-    <description>Demo project for Spring Boot</description>
 
     <properties>
         <java.version>1.8</java.version>
@@ -57,6 +56,12 @@
                     <artifactId>junit-vintage-engine</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.spockframework</groupId>
+            <artifactId>spock-core</artifactId>
+            <version>1.1-groovy-2.4-rc-2</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
