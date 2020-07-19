@@ -25,13 +25,13 @@ public class Order {
 
     private Status status;
 
-    public Order() {
+    Order() {
         this.id = UUID.randomUUID();
         this.orderItems = new HashSet<>();
         this.status = Status.Submitted;
     }
 
-    public void complete() {
+    void complete() {
         if (orderItems.isEmpty()) {
             throw new IllegalStateException("Order list cannot be empty");
         }
@@ -39,7 +39,7 @@ public class Order {
         status = Status.Completed;
     }
 
-    public void addToOrder(UUID productId, long amount) {
+    void addToOrder(UUID productId, long amount) {
         Optional<OrderItem> orderItem = orderItems.stream()
                 .filter(item -> item.getProductId().equals(productId))
                 .findFirst();
@@ -51,7 +51,7 @@ public class Order {
         }
     }
 
-    public void removeFromOrder(UUID productId, long amount) {
+    void removeFromOrder(UUID productId, long amount) {
         OrderItem orderItem = orderItems.stream()
                 .filter(item -> item.getProductId().equals(productId))
                 .findFirst()
