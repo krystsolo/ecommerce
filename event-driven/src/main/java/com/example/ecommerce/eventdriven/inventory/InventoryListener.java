@@ -1,7 +1,7 @@
 package com.example.ecommerce.eventdriven.inventory;
 
 import com.example.ecommerce.eventdriven.catalog.ProductCreated;
-import com.example.ecommerce.eventdriven.order.OrderSubmitted;
+import com.example.ecommerce.eventdriven.order.OrderCompleted;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
@@ -21,7 +21,7 @@ class InventoryListener {
     }
 
     @EventListener
-    public void updateStockFor(OrderSubmitted event) {
+    public void updateStockFor(OrderCompleted event) {
         List<UpdatedItem> updatedItems = event.getOrderedProducts().stream()
                 .map(ordered -> new UpdatedItem(ordered.getProductId(), ordered.getAmount()))
                 .collect(Collectors.toList());
